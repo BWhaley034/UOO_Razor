@@ -91,11 +91,13 @@ while goodToGo = 1
     
     elseif skill "magery" >= 85 and skill "magery" <= 100
         cast "Earth Elemental"
-        wait 6500
-        say "All Release"   
-        waitforgump 931181454
-        gumpresponse 1
-        wait generalWait
+        if followers > 0
+            wait 6500
+            say "All Release"   
+            waitforgump 931181454
+            gumpresponse 1
+        endif
+        wait 250
     
     endif
 
