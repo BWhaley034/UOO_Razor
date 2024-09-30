@@ -1,0 +1,108 @@
+
+#Set continue variable
+@setvar! generalWait 100
+@setvar! goodToGo 1
+@setvar! regsLowAmount 10
+@setvar! trainUntil 100
+
+while goodToGo = 1
+    #If mana is low, meditate and wait
+
+    if mana < 50 and not findbuff "Meditating"
+        
+        useskill "Meditation"
+        wait generalWait
+        while mana < 100
+            wait 500
+        endwhile
+
+    endif   
+
+
+    #Check reagant quantity, quit if low
+
+    if counttype 3962 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Black Pearl"
+    #Bloodmoss 3963
+    elseif counttype 3963 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Blood Moss"
+    #Garlic 3972
+    elseif counttype 3972 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Garlic"
+    #Ginseng 3973
+    elseif counttype 3973 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Ginseng"
+    #Mandrakeroot 3974
+    elseif counttype 3974 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Mandrake Root"
+    #Nightshade 3976
+    elseif counttype 3976 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Nightshade"
+    #Spider's Silk 3981
+    elseif counttype 3981 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Spider's Silk"
+    #Sulfurous Ash 3980
+    elseif counttype 3980 < regsLowAmount
+        @setvar! goodToGo 0
+        overhead "Low on Sulfurous Ash"
+    endif
+
+
+
+
+
+    # Find a target
+
+    @hotkey "Target Closest Non-Friendly Monster"
+
+    @setvar! hostileTarget lasttarget
+
+
+    #Cast the spell
+    if skill "magery" < 50
+        overhead "Go pay for training ya cheap bastard"
+        @setvar! reagants 0
+    
+    elseif skill "magery" >= 50 and skill "magery" < 60
+        cast "lightning"
+        wft
+        target hostileTarget
+        wait 250
+       
+    elseif skill "magery" >= 60 and skill "magery" < 75
+        cast "invisibility"
+        wft
+        target self
+        wait 250
+    
+    elseif skill "magery" >= 75 and skill "magery" < 85 
+        cast "Flamestrike"
+        wft
+        wait generalWait
+        target hostileTarget
+        wait 250
+    
+    elseif skill "magery" >= 85 and skill "magery" <= 100
+        cast "Earth Elemental"
+        wait 6500
+        say "All Release"   
+        waitforgump 931181454
+        gumpresponse 1
+        wait generalWait
+    
+    endif
+
+    #If we've hit taget skill then cancel the loop
+    if skill "magery" = trainUntil
+        @setvar goodToGo 0
+    endif
+        
+    
+endwhile
