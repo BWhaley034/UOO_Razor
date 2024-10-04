@@ -1,0 +1,54 @@
+#Health Monitor
+
+#Set to 0 for non-mage
+@setvar! mageBuffs = 0
+
+#How many hit point loss to allow before healing
+@setvar! lowHP = 25
+
+#If / not you want to use each potion type
+@setvar! healPot = 1
+@setvar! curePot = 1
+@setvar! refreshPot = 1
+@setvar! strengthPot = 1
+@setvar! agilityPot = 1
+@setvar! magicresistPot = 1
+
+#If / not you want to use trap pouches
+@setvar! trapPouch = 1
+
+#How close do you want to allow reds to get before running
+#Set to 0 to not use autorecall
+@setvar! redsDistance = 0
+
+
+
+
+#While true
+if poisoned
+  if curePot = 1 and findtype 3847 as "cure"
+    dclick cure
+  else
+    overhead "Out of Cure potions"
+    curePot = 1
+  endif
+
+if diffhits > lowHP
+  if healPot = 1 and findtype 3852 as "heal"
+    dclick heal
+  else
+    overhead "Out of Heal potions"
+    healPot = 0
+  endif
+  
+#if poisoned and cure potion timer = 0
+  #Drink a cure potion
+  #if no potions, overhead msg
+#if diffhp > 20
+  #drink a greater heal
+#
+
+
+
+#if paralyzed
+  #Use a trap pouch
