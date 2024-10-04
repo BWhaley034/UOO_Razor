@@ -1,0 +1,17 @@
+#variable for emergencybail option (recall out immediately)
+#Variable for red distance tolerance
+
+
+#Clear hands
+#Check for pickaxe in backpack
+#if not found, overhead msg and stop loop
+#If found equip and continue
+
+#activate right hand
+#If sysmsg "no resurces found", ovrhead msg to move
+#wait 250 
+#If weightdiff >9 overheadmsg to find a forge and pause
+    #repeat looking for a forge
+    #if forge found
+        #Smelt all ore in bag
+        #put ingots in lockbox
