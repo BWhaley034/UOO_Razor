@@ -27,8 +27,10 @@
 
 
 @setvar! scriptRunning 1
+@setvar! generalWait 100
 
 @setvar! attemptCure 1
+
 
 while scriptRunning = 1
   if poisoned
@@ -42,11 +44,11 @@ while scriptRunning = 1
     elseif curePot = 0 and mageHeal = 1
       #Cast Cure on self
     else
-      if not timerexists "cureFailTimer"
-        createtimer "cureFailTimer"
-      elseif timer "cureFailTimer" > 5000
-        overhead "Cannot Cure!"
-        settimer "cureFailTimer" 0
+#      if not timerexists "cureFailTimer"
+#        createtimer "cureFailTimer"
+#      elseif timer "cureFailTimer" > 5000
+#        overhead "Cannot Cure!"
+#        settimer "cureFailTimer" 0
       endif
     endif
   endif
@@ -66,7 +68,16 @@ while scriptRunning = 1
   #if diffhp > 20
     #drink a greater heal
   #
-  
+
+  if paralyzed
+    if trapPouch = 1
+      say "[pouch"
+      if insysmsg "No trapped pouches found"
+        @setvar! trapPouch 0
+      endif
+    wait generalWait
+    endif
+  endif
   
   
   #if paralyzed
