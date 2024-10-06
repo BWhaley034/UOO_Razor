@@ -1,0 +1,66 @@
+#Health Monitor
+
+#How many hit point loss to allow before healing
+@setvar! lowHP 25
+@setvar! lowStam 10
+
+#If / not you want to use each potion type
+@setvar! curePot 1
+@setvar! healPot 1
+@setvar! refreshPot 1
+
+@setvar! strengthPot 1
+@setvar! agilityPot 1
+@setvar! magicresistPot 1
+
+#If / not you want to use trap pouches
+@setvar! trapPouch 1
+
+
+
+@setvar! scriptRunning 1
+@setvar! generalWait 100
+
+
+while scriptRunning = 1
+
+  if poisoned and curePot = 1
+    if findtype 3847 as "cure"
+      dclick cure
+    else
+      overhead "Out of Cure potions!"
+      @setvar! curePot 0
+    endif
+    wait generalWait
+  endif
+  
+  if diffhits > lowHP and healPot = 1
+    if findtype 3852 as "heal"
+      dclick heal
+    else
+      overhead "Out of Heal potions"
+      @setvar! healPot 0
+    endif
+  endif
+
+  if diffstam > lowStam and refreshPot = 1
+    if findtype 3851 as refresh
+      dclick refresh
+    else
+      overhead "Out of Refresh potions!"
+      @setvar refreshPot 0
+    endif
+    wait generalWait
+  endif
+    
+  if paralyzed and trapPouch = 1
+    say "[pouch"
+    if insysmsg "No trapped"
+      overhead "Out of trapped pouches!"
+      @setvar! trapPouch 0
+    endif
+    wait generalWait
+  endif
+  
+  
+endwhile
