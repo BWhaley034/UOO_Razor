@@ -16,7 +16,10 @@
 #If / not you want to use trap pouches
 @setvar! trapPouch 1
 
+#If / not you want to use food
+@setvar! foodBuff 1
 
+#-------------
 
 @setvar! scriptRunning 1
 @setvar! generalWait 100
@@ -61,6 +64,45 @@ while scriptRunning = 1
     endif
     wait generalWait
   endif
-  
+
+  if not findbuff "Strength" and strengthPot = 1
+    if findtype 3849 as strength
+      dclick strength
+    else
+      overhead "Out of Strength potions!"
+      @setvar! strengthPot 0
+    endif
+    wait generalWait
+  endif
+
+  if not findbuff "Agility" and agilityPot = 1
+    if findtype 3848 as agility
+      dclick agility
+    else
+      overhead "Out of Agility Potions!"
+      @setvar! agilityPot 0
+    endif
+    wait generalWait
+  endif
+
+  if not findbuff "Magic Resist" and magicresistPot = 1
+    if findtype 3846 as magicres
+      dclick magicres
+    else
+      overhead "Out of Magic Resist potions!"
+      @setvar! magicresistPot 0
+    endif
+    wait generalWait
+  endif
+
+  if not findbuff "food" and foodBuff = 1
+    if findtype "tray" as food
+      dclick food
+    else
+      overhead "Out of Food!"
+      @setvar! foodBuff 0
+    endif
+    wait generalWait
+  endif
   
 endwhile
