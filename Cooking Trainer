@@ -17,6 +17,12 @@ if counttype foodType backpack < 10 or not findtype "frypan" backpack or not fin
     wft
     hotkey "Target Self"
     wait 2000
+
+    if counttype foodType backpack < 10 or not findtype "frypan" backpack or not findtype "kindling" backpack
+        overhead "Necessary resource is missing from bank box!"
+        wait 5000
+        replay
+    endif
 endif
 
 while skill "Cooking" < skillTarget and counttype foodType backpack > 3 and findtype "kindling" backpack and findtype "frypan" backpack as skillet
