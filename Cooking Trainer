@@ -5,6 +5,8 @@
 #Choose the base food type, 2545 for ribs, 2426 for fish
 @setvar! foodType 2545
 
+#How high are you looking to train your skill?
+@setvar! skillTarget 100
 
 
 #Restock skillets, ribs (or fish), and kindling
@@ -37,18 +39,30 @@ while skill "Cooking" < 50
 endwhile
 
 while skill skill "Cooking" < 100 and counttype foodType > 0 and findtype "frypan" backpack as skillet
+  
   gumpclose
   overhead "Cooking..."
   dclick "skillet" backpack
   waitforgump 949095101
   gumpresponse 100 949095101
   waitforgump 949095101
+  
   if foodType = 2545
-    gumpresponse 202 949095101
+    if skill "Cooking" < 100
+      gumpresponse 202 949095101
+    else
+      gumpresponse 205 949095101
+    endif
+
   elseif foodType = 2426
-    gumpresponse 204 949095101
+    if skill "Cooking < 100
+      gumpresponse 204 949095101
+    else
+      gumpresponse 207 949095101
+
   else
     overhead "Check foodType variable"
   endif
+
   wait 3500
 endwhile
