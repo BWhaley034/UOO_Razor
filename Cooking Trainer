@@ -1,0 +1,32 @@
+#Set restock agent 5 to 2 skillets, 25 ribs (or fish), 2 kindling
+#Stand by bankbox with ribs (or fish), kindling, and skillets inside
+
+
+#Choose the base food type, 0 for ribs, 1 for fish
+@setvar! foodType 0
+
+
+#Restock skillets, ribs (or fish), and kindling
+if foodType = 0
+  if counttype 2545 backpack < 10 or not findtype "frypan" backpack
+    restock 5
+    wft
+    hotkey "Target Self"
+    wait 2000
+  endif
+
+elseif foodType = 1
+  if counttype 2426 backpack < 10 or not findtype "frypan" backpack
+    restock 5
+    wft
+    hotkey "Target Self"
+    wait 2000
+  endif
+
+  else
+    overhead "Set the foodtype to 0 (ribs) or 1 (fish steaks)
+endif
+
+
+
+
