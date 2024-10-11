@@ -10,12 +10,12 @@
 
 
 #Restock skillets, ribs (or fish), and kindling
-  if counttype foodType backpack < 10 or not findtype "frypan" backpack or not findtype "kindling" backpack
+if counttype foodType backpack < 10 or not findtype "frypan" backpack or not findtype "kindling" backpack
     restock 5
     wft
     hotkey "Target Self"
     wait 2000
-  endif
+endif
 
 #Make sure there's a campfire nearby to cook at
 if not findtype "campfire" true
@@ -38,7 +38,7 @@ while skill "Cooking" < 50
   replay
 endwhile
 
-while skill skill "Cooking" < 100 and counttype foodType > 0 and findtype "frypan" backpack as skillet
+while skill skill "Cooking" < skillTarget and counttype foodType backpack > 0 and findtype "kindling" backpack and findtype "frypan" backpack as skillet
   
   gumpclose
   overhead "Cooking..."
@@ -59,6 +59,7 @@ while skill skill "Cooking" < 100 and counttype foodType > 0 and findtype "frypa
       gumpresponse 204 949095101
     else
       gumpresponse 207 949095101
+    endif
 
   else
     overhead "Check foodType variable"
