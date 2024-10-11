@@ -2,31 +2,38 @@
 #Stand by bankbox with ribs (or fish), kindling, and skillets inside
 
 
-#Choose the base food type, 0 for ribs, 1 for fish
-@setvar! foodType 0
+#Choose the base food type, 2545 for ribs, 2426 for fish
+@setvar! foodType 2545
+
 
 
 #Restock skillets, ribs (or fish), and kindling
-if foodType = 0
-  if counttype 2545 backpack < 10 or not findtype "frypan" backpack
+  if counttype foodType backpack < 10 or not findtype "frypan" backpack
     restock 5
     wft
     hotkey "Target Self"
     wait 2000
   endif
 
-elseif foodType = 1
-  if counttype 2426 backpack < 10 or not findtype "frypan" backpack
-    restock 5
-    wft
-    hotkey "Target Self"
-    wait 2000
-  endif
+while skill "Cooking" < 50
+  overhead "Go pay for training to 50 skill."
+  wait 5000
+  replay
+endwhile
 
+while skill skill "Cooking" < 100 and counttype foodType > 0 and findtype "frypan" backpack as skillet
+  gumpclose
+  overhead "Cooking..."
+  dclick "skillet" backpack
+  waitforgump 949095101
+  gumpresponse 100 949095101
+  waitforgump 949095101
+  if foodType = 2545
+    gumpresponse 202 949095101
+  elseif foodType = 2426
+    gumpresponse 204 949095101
   else
-    overhead "Set the foodtype to 0 (ribs) or 1 (fish steaks)
-endif
-
-
-
-
+    overhead "Check foodType variable"
+  endif
+  wait 3500
+endwhile
