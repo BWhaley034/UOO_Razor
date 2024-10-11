@@ -8,12 +8,27 @@
 
 
 #Restock skillets, ribs (or fish), and kindling
-  if counttype foodType backpack < 10 or not findtype "frypan" backpack
+  if counttype foodType backpack < 10 or not findtype "frypan" backpack or not findtype "kindling" backpack
     restock 5
     wft
     hotkey "Target Self"
     wait 2000
   endif
+
+#Make sure there's a campfire nearby to cook at
+if not findtype "campfire" true
+  if findtype "kindling" backpack as kindling
+    dclick kindling
+      if insysmsg "You fail to ignite"
+        wait 1000
+      endif
+  else
+    overhead "You have no kindling."
+    wait 3000
+    replay
+  endif
+  replay
+endif
 
 while skill "Cooking" < 50
   overhead "Go pay for training to 50 skill."
