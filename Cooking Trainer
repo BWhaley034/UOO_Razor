@@ -1,13 +1,24 @@
-#Set restock agent 5 to 2 skillets, 25 ribs (or fish), 2 kindling
-#Stand by bankbox with ribs (or fish), kindling, and skillets inside
+https://github.com/BWhaley034/UOO_Razor
 
+#This script will train cooking to whatever level you set. It will train Cooked Ribs or Cooked Fish Steaks
+#up to 100, and Ribs Baskets and Fish Steak Baskets to 120. Whether you want to train with ribs or fish is
+#selectable below.
+
+#You must create restock agent #5 in the Razor "Agents" tab to restock 25 ribs (or fish), 2 kindling
+#and 2 skillets.
+
+#Fill your bankbox with as many skillets, ribs/fish, and kindling as you'll need (lots)
+
+#Stand close enough to the bank to open the bankbox (which will happen automatically)
 
 #Choose the base food type, 2545 for ribs, 2426 for fish
 @setvar! foodType 2545
 
-#How high are you looking to train your skill?
+#Set the maximum skill level you want to train to
 @setvar! skillTarget 100
 
+
+--------------------------------------
 
 #Restock skillets, ribs (or fish), and kindling
 if counttype foodType backpack < 10 or not findtype "frypan" backpack or not findtype "kindling" backpack
